@@ -31,10 +31,7 @@ END
 
       if languages.empty?
         @languages = Dir.glob(
-          File.expand_path(
-            File.join('..', '..', yml_dirs.first, "#{yml_file_prefixes.first}.*.yml"),
-            __FILE__
-          )
+          File.join(yml_dirs.first, "#{yml_file_prefixes.first}.*.yml")
         ).map { |x| x.split('.')[-2] }
       else
         @languages = languages
@@ -71,8 +68,6 @@ END
 
       @yml_dirs.each do |dir|
         @yml_file_prefixes.each do |prefix|
-          english_alias_data = get_english_alias_data(dir, prefix)
-
           @languages.each do |language|
             filename = yml_path_if_exists(dir, prefix, language)
 
@@ -85,8 +80,7 @@ END
     end
 
     def yml_path(dir, prefix, language)
-      path = "../../#{dir}/#{prefix}.#{language}.yml"
-      File.expand_path(path, __FILE__)
+      File.join(dir, "#{prefix}.#{language}.yml")
     end
 
     def yml_path_if_exists(dir, prefix, language)
