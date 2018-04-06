@@ -37,6 +37,8 @@ END
       # ensure that all locale files exists. tx doesn't create missing locale files during pull
       @yml_dirs.each do |dir|
         @yml_file_prefixes.each do |prefix|
+          next unless yml_path_if_exists(dir, prefix, 'en')
+
           @languages.each do |language|
             filename = yml_path(dir, prefix, language)
             FileUtils.touch(filename) unless File.exists?(filename)
