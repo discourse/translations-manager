@@ -7,25 +7,31 @@ require_relative 'locale_file_cleaner'
 module TranslationsManager
   class TransifexUpdater
 
-    YML_FILE_COMMENTS = <<END
-# encoding: utf-8
-#
-# Never edit this file. It will be overwritten when translations are pulled from Transifex.
-#
-# To work with us on translations, join this project:
-# https://www.transifex.com/projects/p/discourse-org/
-END
+    YML_FILE_HEADER = <<~HEADER
+      # encoding: utf-8
+      #
+      # Never edit this file. It will be overwritten when translations are pulled from Transifex.
+      #
+      # To work with us on translations, join this project:
+      # https://www.transifex.com/projects/p/discourse-org/
+    HEADER
 
     SUPPORTED_LOCALES = ["ar", "bs_BA", "ca", "cs", "da", "de", "el", "en", "es", "et", "fa_IR", "fi", "fr", "gl", "he", "id", "it", "ja", "ko", "lv", "nb_NO", "nl", "pl_PL", "pt", "pt_BR", "ro", "ru", "sk", "sq", "sv", "te", "th", "tr_TR", "uk", "ur", "vi", "zh_CN", "zh_TW"]
 
     def initialize(yml_dirs, yml_file_prefixes, *languages)
 
       if `which tx`.strip.empty?
-        puts '', 'The Transifex client needs to be installed to use this script.'
-        puts 'Instructions are here: http://docs.transifex.com/client/setup/'
-        puts '', 'On Mac:', ''
-        puts '  sudo easy_install pip'
-        puts '  sudo pip install transifex-client', ''
+        STDERR.puts <<~USAGE
+
+          The Transifex client needs to be installed to use this script.
+          Instructions are here: https://docs.transifex.com/client/installing-the-client
+
+          On Mac:
+            sudo easy_install pip
+            sudo pip install transifex-client
+
+        USAGE
+
         raise RuntimeError.new("Transifex client needs to be installed")
       end
 
@@ -101,7 +107,7 @@ END
       lines.collect! { |line| line.gsub!(/^[a-z_]+:( {})?$/i, "#{language}:\\1") || line }
 
       File.open(filename, 'w+') do |f|
-        f.puts(YML_FILE_COMMENTS, '') unless lines[0][0] == '#'
+        f.puts(YML_FILE_HEADER, '') unless lines[0][0] == '#'
         f.puts(lines)
       end
     end
