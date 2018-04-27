@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'translations_manager/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "translations-manager"
+  spec.name          = "translations_manager"
   spec.version       = TranslationsManager::VERSION
   spec.authors       = ["Neil Lalonde"]
   spec.email         = ["neil.lalonde@discourse.org"]
 
   spec.summary       = %q{Tools used to update translations in Discourse repos}
   spec.description   = %q{We need to update translations in different repos for our official plugins, so use this gem.}
-  spec.homepage      = "https://github.com/discourse/translations_manager"
+  spec.homepage      = "https://github.com/discourse/translations-manager"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
