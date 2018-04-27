@@ -2,6 +2,7 @@ require 'open3'
 require 'psych'
 require 'set'
 require 'fileutils'
+require_relative 'locale_file_cleaner'
 
 module TranslationsManager
   class TransifexUpdater
@@ -33,7 +34,7 @@ END
       @languages = (languages.empty? ? SUPPORTED_LOCALES : languages).select { |x| x != 'en' }.sort
     end
 
-    def perform
+    def perform(pull: true)
       # ensure that all locale files exists. tx doesn't create missing locale files during pull
       @yml_dirs.each do |dir|
         @yml_file_prefixes.each do |prefix|
@@ -46,6 +47,23 @@ END
         end
       end
 
+      pull_translations if pull
+
+      @yml_dirs.each do |dir|
+        @yml_file_prefixes.each do |prefix|
+          @languages.each do |language|
+            filename = yml_path_if_exists(dir, prefix, language)
+
+            if filename
+              remove_empty_translations(filename)
+              update_file_header(filename, language)
+            end
+          end
+        end
+      end
+    end
+
+    def pull_translations
       puts 'Pulling new translations...', ''
       command = "tx pull --mode=developer --language=#{@languages.join(',')} --force"
 
@@ -62,18 +80,6 @@ END
         STDERR.puts 'Something failed. Check the output above.', ''
         exit return_value.exitstatus
       end
-
-      @yml_dirs.each do |dir|
-        @yml_file_prefixes.each do |prefix|
-          @languages.each do |language|
-            filename = yml_path_if_exists(dir, prefix, language)
-
-            if filename
-              update_file_header(filename, language)
-            end
-          end
-        end
-      end
     end
 
     def yml_path(dir, prefix, language)
@@ -83,6 +89,10 @@ END
     def yml_path_if_exists(dir, prefix, language)
       path = yml_path(dir, prefix, language)
       File.exists?(path) ? path : nil
+    end
+
+    def remove_empty_translations(filename)
+      TranslationsManager::LocaleFileCleaner.new(filename).clean!
     end
 
     # Add comments to the top of files and replace the language (first key in YAML file)

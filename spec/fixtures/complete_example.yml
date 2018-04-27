@@ -1,0 +1,53 @@
+en:
+  translated: "foo"
+  not_translated: ""
+  also_not_translated: ''
+
+  longer_strings:
+    translated: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Donec eget bibendum massa. Proin sollicitudin pretium ullamcorper.
+      Ut blandit dolor vel tempor porta.
+
+    not_translated: |
+
+
+  empty_group:
+    some_key: ""
+    another_key: ""
+  another_translated_text: bar
+
+  datetime_formats: &datetime_formats
+    formats:
+      # Format directives: http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime
+      short: "%m-%d-%Y"
+      # Format directives: http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime
+      short_no_year: "%B %-d"
+  date:
+    # Do not remove the brackets and commas and do not translate the first month name. It should be "null".
+    month_names:
+      [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    <<: *datetime_formats
+  date_time:
+    <<: *datetime_formats
+  time:
+    <<: *datetime_formats
+    am: "am"
+    pm: "pm"
+
+  this_is_a:
+    nested:
+      and:
+        empty:
+          string: ""
+
+  anchor:
+    empty: &empty_anchor
+      foo: ""
+      bar: ""
+    empty_group:
+      <<: *empty_anchor
+    some_translations:
+      a: "a"
+      b: "b"
+      <<: *empty_anchor

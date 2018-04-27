@@ -1,0 +1,10 @@
+en:
+  not_translated: ""
+  also_not_translated: ''
+
+  datetime_formats: &datetime_formats
+    formats:
+      short: ""
+      short_no_year:
+  date:
+    <<: *datetime_formats

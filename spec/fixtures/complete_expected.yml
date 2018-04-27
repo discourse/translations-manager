@@ -1,0 +1,25 @@
+en:
+  translated: "foo"
+  longer_strings:
+    translated: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Donec eget bibendum massa. Proin sollicitudin pretium ullamcorper.
+      Ut blandit dolor vel tempor porta.
+  another_translated_text: bar
+  datetime_formats: &datetime_formats
+    formats:
+      short: "%m-%d-%Y"
+      short_no_year: "%B %-d"
+  date:
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    <<: *datetime_formats
+  date_time:
+    <<: *datetime_formats
+  time:
+    <<: *datetime_formats
+    am: "am"
+    pm: "pm"
+  anchor:
+    some_translations:
+      a: "a"
+      b: "b"
