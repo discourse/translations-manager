@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'translations_manager/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "translations_manager"
+  spec.name          = "translations-manager"
   spec.version       = TranslationsManager::VERSION
   spec.authors       = ["Neil Lalonde"]
   spec.email         = ["neil.lalonde@discourse.org"]
