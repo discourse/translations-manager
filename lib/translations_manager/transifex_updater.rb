@@ -3,7 +3,8 @@ require 'psych'
 require 'set'
 require 'fileutils'
 require_relative 'locale_file_cleaner'
-require_relative 'supported_locales'
+require_relative 'locales'
+require_relative 'transifex_config_file_updater'
 
 module TranslationsManager
   class TransifexUpdater
@@ -39,19 +40,9 @@ module TranslationsManager
       @languages = (languages.empty? ? SUPPORTED_LOCALES : languages).select { |x| x != 'en' }.sort
     end
 
-    def perform(pull: true)
-      # ensure that all locale files exists. tx doesn't create missing locale files during pull
-      @yml_dirs.each do |dir|
-        @yml_file_prefixes.each do |prefix|
-          next unless yml_path_if_exists(dir, prefix, 'en')
-
-          @languages.each do |language|
-            filename = yml_path(dir, prefix, language)
-            FileUtils.touch(filename) unless File.exists?(filename)
-          end
-        end
-      end
-
+    def perform(pull: true, tx_config_filename: '.tx/config')
+      update_tx_config(tx_config_filename)
+      create_missing_locale_files
       pull_translations if pull
 
       @yml_dirs.each do |dir|
@@ -63,6 +54,31 @@ module TranslationsManager
               remove_empty_translations(filename)
               update_file_header(filename, language)
             end
+          end
+        end
+      end
+    end
+
+    def update_tx_config(filename)
+      if !File.exists?(filename)
+        STDERR.puts "Can't find tx configuration file at #{filename}", ''
+        exit 1
+      end
+
+      File.open(filename, 'r+') do |file|
+        TranslationsManager::TransifexConfigFileUpdater.update_lang_map(file, LANGUAGE_MAP)
+      end
+    end
+
+    def create_missing_locale_files
+      # ensure that all locale files exists. tx doesn't create missing locale files during pull
+      @yml_dirs.each do |dir|
+        @yml_file_prefixes.each do |prefix|
+          next unless yml_path_if_exists(dir, prefix, 'en')
+
+          @languages.each do |language|
+            filename = yml_path(dir, prefix, language)
+            FileUtils.touch(filename) unless File.exists?(filename)
           end
         end
       end
