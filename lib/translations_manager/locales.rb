@@ -46,7 +46,6 @@ module TranslationsManager
   # 'language code in transifex' => 'language code in Discourse'
   LANGUAGE_MAP = {
     'el_GR' => 'el',
-    'es_ES' => 'es',
     'fr_FR' => 'fr',
     'ko_KR' => 'ko',
     'pt_PT' => 'pt',
