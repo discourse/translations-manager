@@ -2,6 +2,7 @@ module TranslationsManager
   # all the locales supported by Discourse
   SUPPORTED_LOCALES = [
     'ar',
+    'bg',
     'bs_BA',
     'ca',
     'cs',
