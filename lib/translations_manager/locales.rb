@@ -29,6 +29,7 @@ module TranslationsManager
     'ro',
     'ru',
     'sk',
+    'sw',
     'sl',
     'sq',
     'sr',
@@ -46,6 +47,7 @@ module TranslationsManager
   # 'language code in transifex' => 'language code in Discourse'
   LANGUAGE_MAP = {
     'el_GR' => 'el',
+    'sw_TZ' => 'sw',
     'es_ES' => 'es',
     'fr_FR' => 'fr',
     'ko_KR' => 'ko',
