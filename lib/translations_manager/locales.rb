@@ -33,6 +33,7 @@ module TranslationsManager
     'sq',
     'sr',
     'sv',
+    'sw',
     'te',
     'th',
     'tr_TR',
