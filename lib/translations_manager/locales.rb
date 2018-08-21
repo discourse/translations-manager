@@ -41,8 +41,8 @@ module TranslationsManager
     'uk',
     'ur',
     'vi',
-    'zh_CN',
-    'zh_TW'
+    'zh_CN'
+    #'zh_TW'
   ]
 
   # 'language code in transifex' => 'language code in Discourse'
