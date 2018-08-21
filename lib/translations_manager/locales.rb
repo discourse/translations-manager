@@ -19,7 +19,7 @@ module TranslationsManager
     'hu',
     'id',
     'it',
-    'ja',
+    # 'ja',
     'ko',
     'lv',
     'nb_NO',
