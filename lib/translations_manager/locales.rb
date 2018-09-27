@@ -21,6 +21,7 @@ module TranslationsManager
     'it',
     # 'ja',
     'ko',
+    'lt',
     'lv',
     'nb_NO',
     'nl',
