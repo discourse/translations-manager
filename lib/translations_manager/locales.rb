@@ -1,4 +1,10 @@
 module TranslationsManager
+  # list of locales that will break Discourse and need to be fixed
+  # by translators in Transifex
+  BROKEN_LOCALES = [
+    'ja'
+  ]
+
   # all the locales supported by Discourse
   SUPPORTED_LOCALES = [
     'ar',
@@ -19,7 +25,7 @@ module TranslationsManager
     'hu',
     'id',
     'it',
-    # 'ja',
+    'ja',
     'ko',
     'lt',
     'lv',
@@ -44,7 +50,7 @@ module TranslationsManager
     'vi',
     'zh_CN',
     'zh_TW'
-  ]
+  ] - BROKEN_LOCALES
 
   # 'language code in transifex' => 'language code in Discourse'
   LANGUAGE_MAP = {
