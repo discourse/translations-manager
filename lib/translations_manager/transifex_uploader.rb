@@ -25,7 +25,7 @@ module TranslationsManager
       puts 'Pushing translations...', ''
       resource_argument = @resource_names.empty? ? "" : "-r #{@resource_names.join(',')}"
       language_argument = "--language #{@languages.join(',')}"
-      command = "tx push --translations --force --no-interactive #{resource_argument} #{language_argument}"
+      command = "tx push --translations --force --no-interactive --skip #{resource_argument} #{language_argument}"
 
       execute_tx_command(command)
     end
@@ -39,7 +39,7 @@ module TranslationsManager
             if filename
               language = reset ? discourse_language : transifex_language
               lines = read_yaml_and_update_language_key(filename, language)
-              File.write(filename, lines.join("\n"))
+              File.write(filename, lines.join(""))
             end
           end
         end
