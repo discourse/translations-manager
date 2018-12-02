@@ -7,3 +7,5 @@
 /pkg/
 /spec/reports/
 /tmp/
+
+.rubocop-https---raw-githubusercontent-com-discourse-discourse-master--rubocop-yml
