@@ -1,9 +1,7 @@
 module TranslationsManager
   # list of locales that will break Discourse and need to be fixed
   # by translators in Transifex
-  BROKEN_LOCALES = [
-    'ja'
-  ]
+  BROKEN_LOCALES = []
 
   # all the locales supported by Discourse
   SUPPORTED_LOCALES = [
