@@ -12,6 +12,7 @@ module TranslationsManager
       stream = parse_stream(@filename)
       handle_stream(stream)
       remove_empty_nodes(@tree)
+      rewrite_values(@tree)
 
       stream.to_yaml(nil, line_width: -1)
     end
@@ -84,6 +85,35 @@ module TranslationsManager
           parent[:mapping].children.delete(child[:alias])
         end
       end
+    end
+
+    def rewrite_values(parent)
+      parent[:children].each do |_, child|
+        rewrite_values(child)
+
+        if child[:scalar] && value = child[:value]&.value
+          value = unindent(value)
+          value = replace_duplicate_linebreaks(value)
+          child[:value].value = value
+        end
+      end
+    end
+
+    def unindent(value)
+      lines = value.split("\n")
+      return value unless lines.size > 1
+
+      indentation = lines
+        .reject(&:empty?)
+        .map { |s| s[/^[ ]+/]&.length || 0 }
+        .min
+
+      indentation > 0 ? value.gsub(/^#{' ' * indentation}/, '') : value
+    end
+
+    def replace_duplicate_linebreaks(value)
+      value.gsub(/\n{3,}/, "\n\n")
+        .gsub(/\A\n\n|\n\n\z/, "\n")
     end
 
     def write_yaml(yaml, filename)

@@ -11,6 +11,39 @@ en:
 
     not_translated: |
 
+    with_indentation_indicator: |2
+
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+        Donec eget bibendum massa. Proin sollicitudin pretium ullamcorper.
+
+      Ut blandit dolor vel tempor porta.
+
+    with_indentation_indicator_and_too_much_indentation: |2
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+        Donec eget bibendum massa. Proin sollicitudin pretium ullamcorper.
+
+        Ut blandit dolor vel tempor porta.
+
+    text_with_too_many_line_breaks: |2
+
+
+
+
+
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+
+      Donec eget bibendum massa. Proin sollicitudin pretium ullamcorper.
+
+      Ut blandit dolor vel tempor porta.
+
+
+
+
+  text_with_leading_whitespace: " Lorem ipsum."
 
   empty_group:
     some_key: ""
