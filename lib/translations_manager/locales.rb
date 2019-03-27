@@ -21,6 +21,7 @@ module TranslationsManager
     'gl',
     'he',
     'hu',
+    'hy',
     'id',
     'it',
     'ja',
