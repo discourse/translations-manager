@@ -20,6 +20,7 @@ module TranslationsManager
     'fr',
     'gl',
     'he',
+    'hi',
     'hu',
     'hy',
     'id',
@@ -49,7 +50,6 @@ module TranslationsManager
     'vi',
     'zh_CN',
     'zh_TW'
-    'hi'
   ] - BROKEN_LOCALES
 
   # 'language code in transifex' => 'language code in Discourse'
