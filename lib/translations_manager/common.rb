@@ -1,3 +1,4 @@
+require 'open3'
 require_relative 'transifex_config_file_updater'
 
 module TranslationsManager
