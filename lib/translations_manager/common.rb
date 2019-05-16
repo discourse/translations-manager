@@ -1,4 +1,3 @@
-require 'open3'
 require_relative 'transifex_config_file_updater'
 
 module TranslationsManager
@@ -32,16 +31,7 @@ module TranslationsManager
     end
 
     def execute_tx_command(command)
-      return_value = Open3.popen2e(command) do |_, stdout_err, wait_thr|
-        while (line = stdout_err.gets)
-          puts line
-        end
-        wait_thr.value
-      end
-
-      puts ''
-
-      unless return_value.success?
+      unless system(command)
         STDERR.puts 'Something failed. Check the output above.', ''
         exit return_value.exitstatus
       end
