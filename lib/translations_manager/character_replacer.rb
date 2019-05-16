@@ -12,7 +12,7 @@ class TranslationsManager::CharacterReplacer
   end
 
   def self.replace_control_characters!(text)
-    text.gsub!(/\p{Cntrl}/, '')
+    text.gsub!(/[\p{Cntrl}&&[^\p{Space}]]/, '')
   end
 
   def self.replace_unicode_surrogates!(text)
