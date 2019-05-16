@@ -5,7 +5,7 @@ require 'fileutils'
 require_relative 'common'
 require_relative 'locale_file_cleaner'
 require_relative 'locales'
-require_relative 'unicode_surrogate_replacer'
+require_relative 'character_replacer'
 
 module TranslationsManager
   class TransifexUpdater
@@ -39,7 +39,7 @@ module TranslationsManager
             filename = yml_path_if_exists(dir, prefix, language)
 
             if filename
-              replace_unicode_surrogates(filename)
+              replace_invalid_characters(filename)
               remove_empty_translations(filename)
               update_file_header(filename, language)
             end
@@ -73,8 +73,8 @@ module TranslationsManager
       TranslationsManager::LocaleFileCleaner.new(filename).clean!
     end
 
-    def replace_unicode_surrogates(filename)
-      TranslationsManager::UnicodeSurrogateReplacer.replace_in_file!(filename)
+    def replace_invalid_characters(filename)
+      TranslationsManager::CharacterReplacer.replace_in_file!(filename)
     end
 
     # Add comments to the top of files and replace the language (first key in YAML file)
