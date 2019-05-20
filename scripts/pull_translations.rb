@@ -5,9 +5,7 @@ require "bundler/inline"
 require 'bundler/ui'
 
 gemfile(true, ui: Bundler::UI::Silent.new) do
-  source 'https://rubygems.org'
-
-  gem 'translations-manager', git: 'https://github.com/discourse/translations-manager.git'
+  gem 'translations-manager', path: '.'
 end
 
 require 'translations_manager/character_replacer'
@@ -27,6 +25,7 @@ class TransifexPuller
 
   def setup_tx_client
     check_tx_client
+    execute_tx_command('tx init --skipsetup --no-interactive') unless Dir.exist?('.tx')
     execute_tx_command('tx config mapping-remote https://www.transifex.com/discourse/discourse-org')
   end
 
