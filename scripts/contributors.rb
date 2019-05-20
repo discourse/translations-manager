@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # # frozen_string_literal: true
 
 require "bundler/inline"
@@ -64,4 +66,3 @@ LANGUAGES.each do |language|
     puts "| [#{username}](#{user_link}) | #{user[:new_words]} | #{user[:edited_words]} |"
   end
 end
-
