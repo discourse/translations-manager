@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TranslationsManager::CharacterReplacer
   def self.replace_in_file!(filename)
     file_content = File.read(filename)

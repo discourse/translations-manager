@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'psych'
 require 'set'
 require 'fileutils'

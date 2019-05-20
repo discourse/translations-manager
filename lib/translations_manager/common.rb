@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'transifex_config_file_updater'
 
 module TranslationsManager

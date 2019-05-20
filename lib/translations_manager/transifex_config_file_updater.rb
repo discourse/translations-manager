@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TranslationsManager
   class TransifexConfigFileUpdater
     def self.read_lang_map(file)

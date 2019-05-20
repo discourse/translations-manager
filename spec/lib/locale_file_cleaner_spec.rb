@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'minitest/spec'
 require 'minitest/autorun'
 require 'translations_manager/locale_file_cleaner'

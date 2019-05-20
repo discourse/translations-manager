@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TranslationsManager
   # list of locales that will break Discourse and need to be fixed
   # by translators in Transifex
