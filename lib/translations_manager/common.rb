@@ -22,7 +22,7 @@ module TranslationsManager
     end
 
     def update_tx_config(filename)
-      if !File.exists?(filename)
+      unless File.exists?(filename)
         STDERR.puts "Can't find tx configuration file at #{filename}", ''
         exit 1
       end

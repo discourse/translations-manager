@@ -68,7 +68,7 @@ module TranslationsManager
           parent[:mapping].children.delete(child[:scalar])
           parent[:mapping].children.delete(child[:mapping])
 
-          if anchor = child[:mapping].anchor
+          if (anchor = child[:mapping].anchor)
             @anchors.delete(anchor)
           end
         end
@@ -93,7 +93,7 @@ module TranslationsManager
       parent[:children].each do |_, child|
         rewrite_values(child)
 
-        if child[:scalar] && value = child[:value]&.value
+        if child[:scalar] && (value = child[:value]&.value)
           value = unindent(value)
           value = replace_duplicate_linebreaks(value)
           child[:value].value = value

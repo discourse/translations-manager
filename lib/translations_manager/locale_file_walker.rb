@@ -11,7 +11,7 @@ module TranslationsManager
     end
 
     def handle_stream(stream)
-      stream.children.each { |document| handle_document(document) }
+      stream.children.each(&method(:handle_document))
     end
 
     def handle_document(document)
@@ -28,7 +28,7 @@ module TranslationsManager
     end
 
     def handle_node(node, depth, parents, consecutive_scalars)
-      if node_is_scalar = node.is_a?(Psych::Nodes::Scalar)
+      if (node_is_scalar = node.is_a?(Psych::Nodes::Scalar))
         if valid_scalar?(depth, consecutive_scalars)
           parents[depth] = node.value
           handle_scalar(node, depth, parents)
