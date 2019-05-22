@@ -22,6 +22,7 @@ module TranslationsManager
     'fr',
     'gl',
     'he',
+    'hi',
     'hu',
     'hy',
     'id',
