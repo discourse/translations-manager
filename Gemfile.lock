@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    translations-manager (0.4)
+    translations-manager (0.5)
 
 GEM
   remote: https://rubygems.org/
