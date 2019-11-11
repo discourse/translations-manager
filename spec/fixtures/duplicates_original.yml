@@ -1,0 +1,7 @@
+en:
+  different: "A"
+  same: "C"
+
+  sub_key:
+    different: "X"
+    same: "Y"

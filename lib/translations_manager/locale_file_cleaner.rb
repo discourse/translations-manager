@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
-require_relative 'locale_file_walker'
+require_relative 'yaml_tree_reader'
 
 module TranslationsManager
-  class LocaleFileCleaner < LocaleFileWalker
+  class LocaleFileCleaner
     def initialize(filename)
       @filename = filename
-      @tree = { children: {} }
-      @anchors = {}
     end
 
     def clean
-      stream = parse_stream(@filename)
-      handle_stream(stream)
-      remove_empty_nodes(@tree)
-      rewrite_values(@tree)
+      @reader = YamlTreeReader.new(@filename)
+      tree = @reader.read
 
-      stream.to_yaml(nil, line_width: -1)
+      remove_empty_nodes(tree)
+      rewrite_values(tree)
+
+      @reader.to_yaml
     end
 
     def clean!
@@ -25,37 +24,8 @@ module TranslationsManager
 
     protected
 
-    def handle_value(node, parents)
-      super
-      subtree(parents)[:value] = node
-    end
-
-    def handle_scalar(node, depth, parents)
-      super
-      subtree(parents)[:scalar] = node
-    end
-
-    def handle_mapping(node, depth, parents)
-      super
-      subtree(parents)[:mapping] = node
-      @anchors[node.anchor] = node if node.anchor
-    end
-
-    def handle_alias(node, depth, parents)
-      super
-      subtree(parents)[:alias] = node
-    end
-
-    def subtree(parents)
-      nodes = @tree
-
-      parents.each do |p|
-        nodes = nodes[:children]
-        nodes[p] = { children: {} } unless nodes.key?(p)
-        nodes = nodes[p]
-      end
-
-      nodes
+    def anchors
+      @reader.anchors
     end
 
     def remove_empty_nodes(parent)
@@ -69,7 +39,7 @@ module TranslationsManager
           parent[:mapping].children.delete(child[:mapping])
 
           if (anchor = child[:mapping].anchor)
-            @anchors.delete(anchor)
+            anchors.delete(anchor)
           end
         end
 
@@ -81,7 +51,7 @@ module TranslationsManager
         end
 
         # remove aliases that point to non-existent anchors
-        if child[:alias] && !@anchors.key?(child[:alias].anchor)
+        if child[:alias] && !anchors.key?(child[:alias].anchor)
           parent[:children].delete(key)
           parent[:mapping].children.delete(child[:scalar])
           parent[:mapping].children.delete(child[:alias])

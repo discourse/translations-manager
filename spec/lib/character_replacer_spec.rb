@@ -10,21 +10,21 @@ describe TranslationsManager::CharacterReplacer do
   end
 
   it "correctly replaces Unicode surrogates" do
-    text = 'foo\uD83D\uDE2Dbar\uD83D\uDE09'
+    text = +'foo\uD83D\uDE2Dbar\uD83D\uDE09'
 
     replace_in_text!(text).must_equal true
     text.must_equal 'foo😭bar😉'
   end
 
   it "correctly replaces control characters" do
-    text = "foo\bbar"
+    text = +"foo\bbar"
 
     replace_in_text!(text).must_equal true
     text.must_equal 'foobar'
   end
 
   it "doesn't replace anything" do
-    text = 'foo bar'
+    text = +'foo bar'
 
     replace_in_text!(text).must_equal false
     text.must_equal 'foo bar'

@@ -36,6 +36,8 @@ module TranslationsManager
       create_missing_locale_files
       pull_translations if pull
 
+      @after_pull.call unless @after_pull.nil?
+
       @yml_dirs.each do |dir|
         @yml_file_prefixes.each do |prefix|
           mapped_languages.each do |language|
@@ -49,6 +51,11 @@ module TranslationsManager
           end
         end
       end
+    end
+
+    def after_pull(&block)
+      @after_pull = block
+      self
     end
 
     def create_missing_locale_files
