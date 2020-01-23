@@ -35,7 +35,7 @@ module TranslationsManager
     def execute_tx_command(command)
       unless system(command)
         STDERR.puts 'Something failed. Check the output above.', ''
-        exit return_value.exitstatus
+        exit $?.exitstatus
       end
     end
 
